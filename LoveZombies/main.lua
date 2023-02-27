@@ -3,12 +3,20 @@ World, Entity, Component, System, Event, Class = ECS.world, ECS.entity, ECS.comp
 require('shared.imports')
 
 function love.load()
+    MyWorld = World()
 
+    MyWorld:addEntity(Player)
+
+    MyWorld:addSystem(InputSystem)
+    MyWorld:addSystem(InputMovementSystem)
+    MyWorld:addSystem(MouseRotationSystem)
+    MyWorld:addSystem(RenderSystem)
 end
 
 function love.update(dt)
+    MyWorld:update(dt)
 end
 
 function love.draw()
-
+    MyWorld:draw()
 end

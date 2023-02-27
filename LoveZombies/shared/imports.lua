@@ -2,7 +2,9 @@
 
 -- MARK: - Components
 COMPONENT = {
-    
+    TRANSFORM = 'TRANSFORM',
+    INPUT     = 'INPUT',
+    GUN       = 'GUN'
 }
 
 -- MARK: - Ecosystems
@@ -13,6 +15,13 @@ ECOSYSTEM = {
 EVENT = {
 }
 
+-- MARK: - Assets
+
 -- MARK: - Entities
+require('entities.player')
 
 -- MARK: - Systems
+require('systems.inputSystem')
+require('systems.inputMovementSystem')
+require('systems.mouseRotationSystem')
+require('systems.renderSystem')
