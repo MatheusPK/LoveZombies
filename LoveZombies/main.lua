@@ -11,6 +11,8 @@ function love.load()
     MyWorld:addSystem(InputMovementSystem)
     MyWorld:addSystem(MouseRotationSystem)
     MyWorld:addSystem(RenderSystem)
+    MyWorld:addSystem(InputShootSystem)
+    MyWorld:addSystem(BulletMovementSystem)
 end
 
 function love.update(dt)

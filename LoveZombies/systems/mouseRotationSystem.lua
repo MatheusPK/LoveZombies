@@ -1,5 +1,6 @@
 MouseRotationSystem = System({
-    COMPONENT.TRANSFORM
+    COMPONENT.TRANSFORM,
+    COMPONENT.ROTATE
 })
 
 function MouseRotationSystem:process(dt, components)

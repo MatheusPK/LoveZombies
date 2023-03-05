@@ -16,8 +16,30 @@ Player:addComponent(
 
 Player:addComponent(
     Component(
+        COMPONENT.GUN, {
+            name = 'Pistol',
+            ammo = 30,
+            damage = 10,
+            speed = 300,
+            fireRate = 5,
+            timeSinceLastShoot = 0,
+            firedBullets = {}
+        }
+    )
+)
+
+Player:addComponent(
+    Component(
         COMPONENT.INPUT, {
             keys = {'w', 'a', 's', 'd', 'space'}
+        }
+    )
+)
+
+Player:addComponent(
+    Component(
+        COMPONENT.ROTATE, {
+            rotate = true
         }
     )
 )

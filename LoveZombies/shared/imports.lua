@@ -4,7 +4,8 @@
 COMPONENT = {
     TRANSFORM = 'TRANSFORM',
     INPUT     = 'INPUT',
-    GUN       = 'GUN'
+    GUN       = 'GUN',
+    ROTATE    = 'ROTATE'
 }
 
 -- MARK: - Ecosystems
@@ -25,3 +26,5 @@ require('systems.inputSystem')
 require('systems.inputMovementSystem')
 require('systems.mouseRotationSystem')
 require('systems.renderSystem')
+require('systems.inputShootSystem')
+require('systems.bulletMovementSystem')
