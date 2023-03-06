@@ -130,7 +130,8 @@ function World:manageArchetype(entity)
     for _, archetype in ipairs(self.archetypes) do
         if utils:matchArchetypePattern(entityArchetypePattern, archetype) then
             local archetypeTable = self.archetypes[archetype]
-            table.insert(archetypeTable, entity.components)
+            table.insert(archetypeTable, entity)
+            archetypeTable[entity] = #archetypeTable
         end
     end
 end
@@ -146,11 +147,12 @@ function World:unregisterArchetypeForEntity(entity)
     table.sort(entity.archetype)
     local entityArchetypePattern = table.concat(entity.archetype, '.*')
     local archetypeTable = self.archetypes[entityArchetypePattern]
-    for i = #archetypeTable, 1, -1 do
-        if entity.components == archetypeTable[i] then
-            table.remove(archetypeTable, i)
-        end
-    end
+    local lastEntityIndex = #archetypeTable
+    local lastEntity = archetypeTable[lastEntityIndex]
+
+    utils:swap(archetypeTable, entity, lastEntity)
+    table.remove(archetypeTable, lastEntityIndex)
+    archetypeTable[entity] = nil
 end
 
 return World

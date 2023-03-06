@@ -2,8 +2,8 @@ BulletMovementSystem = System({
     COMPONENT.GUN
 })
 
-function BulletMovementSystem:process(dt, components)
-    local gun = components[COMPONENT.GUN].value
+function BulletMovementSystem:process(dt, entity)
+    local gun = entity:getComponent(COMPONENT.GUN).value
     for _, bullet in pairs(gun.firedBullets) do
         local bulletTransform = bullet:getComponent(COMPONENT.TRANSFORM).value
         bulletTransform.x = bulletTransform.x + (math.cos(bulletTransform.rotation) * bulletTransform.speed * dt)

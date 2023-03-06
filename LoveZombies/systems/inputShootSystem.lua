@@ -4,10 +4,10 @@ InputShootSystem = System({
     COMPONENT.TRANSFORM
 })
 
-function InputShootSystem:process(dt, components)
-    local input = components[COMPONENT.INPUT].value
-    local gun = components[COMPONENT.GUN].value
-    local transform = components[COMPONENT.TRANSFORM].value
+function InputShootSystem:process(dt, entity)
+    local input = entity:getComponent(COMPONENT.INPUT).value
+    local gun = entity:getComponent(COMPONENT.GUN).value
+    local transform = entity:getComponent(COMPONENT.TRANSFORM).value
     local keys = input.keys
 
     gun.timeSinceLastShoot = gun.timeSinceLastShoot + dt

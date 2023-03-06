@@ -21,10 +21,10 @@ function System:handleEvent(event, dt) end
 
 function System:update(dt)
     self:processEvents(dt)
-    self:processComponents(dt)
+    self:processEntities(dt)
 end
 
-function System:process(dt, components) end
+function System:process(dt, entity) end
 
 function System:onRemove() end
 
@@ -37,15 +37,15 @@ function System:processEvents(dt)
     end
 end
 
-function System:processComponents(dt)
-    local componentSet = self:getComponentSet()
+function System:processEntities(dt)
+    local componentSet = self:getEntitySet()
     if componentSet == nil then return end
     for _, components in ipairs(componentSet) do
         self:process(dt, components)
     end
 end
 
-function System:getComponentSet()
+function System:getEntitySet()
     local archetypePattern = table.concat(self.archetype, ".*")
     return self.world.archetypes[archetypePattern]
 end

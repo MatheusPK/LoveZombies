@@ -3,9 +3,9 @@ InputMovementSystem = System({
     COMPONENT.TRANSFORM
 })
 
-function InputMovementSystem:process(dt, components)
-    local transform = components[COMPONENT.TRANSFORM].value
-    local input = components[COMPONENT.INPUT].value
+function InputMovementSystem:process(dt, entity)
+    local transform = entity:getComponent(COMPONENT.TRANSFORM).value
+    local input = entity:getComponent(COMPONENT.INPUT).value
     local keys = input.keys
 
     if (keys.w or keys.up) then transform.y = transform.y - transform.speed * dt end
