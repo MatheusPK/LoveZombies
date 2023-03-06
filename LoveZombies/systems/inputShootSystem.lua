@@ -14,7 +14,7 @@ function InputShootSystem:process(dt, components)
 
     if keys.space and 1/gun.fireRate <= gun.timeSinceLastShoot then
         gun.timeSinceLastShoot = 0
-        
+
         local bullet = Entity()
 
         bullet:addComponent(
@@ -24,6 +24,8 @@ function InputShootSystem:process(dt, components)
                     y = transform.y,
                     w = 10,
                     h = 10,
+                    sx = 0.5,
+                    sy = 0.5,
                     rotation = transform.rotation,
                     texture = love.graphics.newImage('assets/bullet.png'),
                     speed = gun.speed
