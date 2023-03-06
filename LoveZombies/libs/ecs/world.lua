@@ -42,6 +42,7 @@ function World:manageEntities()
         table.remove(self.entities, lastEntityIndex)
         self.entities[entityToRemove] = nil
         self.entityCount = self.entityCount - 1
+        self:unregisterArchetypeForEntity(entityToRemove)
         entityToRemove:onRemove()
     end
 
@@ -139,6 +140,17 @@ function World:registerArchetype(archetype)
     local archetypePattern = table.concat(archetype, '.*')
     table.insert(self.archetypes, archetypePattern)
     self.archetypes[archetypePattern] = {}
+end
+
+function World:unregisterArchetypeForEntity(entity)
+    table.sort(entity.archetype)
+    local entityArchetypePattern = table.concat(entity.archetype, '.*')
+    local archetypeTable = self.archetypes[entityArchetypePattern]
+    for i = #archetypeTable, 1, -1 do
+        if entity.components == archetypeTable[i] then
+            table.remove(archetypeTable, i)
+        end
+    end
 end
 
 return World
