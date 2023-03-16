@@ -14,6 +14,23 @@ baseMt = {
      end
 }
 
+local function deep_copy(t, dest, aType)
+	t = t or {}
+	local r = dest or {}
+	for k,v in pairs(t) do
+		if aType ~= nil and type(v) == aType then
+			r[k] = (type(v) == 'table')
+							and ((_classes[v] or _instances[v]) and v or deep_copy(v))
+							or v
+		elseif aType == nil then
+			r[k] = (type(v) == 'table') 
+			        and k~= '__index' and ((_classes[v] or _instances[v]) and v or deep_copy(v)) 
+							or v
+		end
+	end
+	return r
+end
+
 local function instantiate(self, ...)
     assert(not self.isInstance, "Wrong method call. Expected class:new(...) or class(...)")
     local instance = {}
@@ -22,6 +39,18 @@ local function instantiate(self, ...)
     instance.isInstance = true
     if self.init then self.init(instance, ...) end
     return setmetatable(instance, self)
+end
+
+local function extend(self, name, extra_params)
+    assert(not self.isInstance, "extend(...)")
+    local heir = extra_params or {}
+    _classes[heir] = tostring(heir)
+    self.__subclasses[heir] = true
+    deep_copy(self, heir)
+	heir.name    = name
+	heir.__index = heir
+	heir.super   = self
+	return setmetatable(heir,self)
 end
 
 function class:new(name, attr)
@@ -33,8 +62,10 @@ function class:new(name, attr)
     o.__index = o
 
     o.new = instantiate
+    o.extend = extend
     o.__call = baseMt.__call
     o.__tostring = baseMt.__tostring
+    o.__subclasses = setmetatable({},{__mode = 'k'})
     return setmetatable(o, baseMt)
 end
 
