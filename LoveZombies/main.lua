@@ -5,7 +5,9 @@ require('shared.imports')
 function love.load()
     MyWorld = World()
 
-    MyWorld:addEntity(Player)
+    local player = Player:factory()
+
+    MyWorld:addEntity(player)
 
     MyWorld:addSystem(InputSystem)
     MyWorld:addSystem(InputMovementSystem)

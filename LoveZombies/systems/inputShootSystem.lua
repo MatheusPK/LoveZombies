@@ -15,24 +15,7 @@ function InputShootSystem:process(dt, entity)
     if keys.space and 1/gun.fireRate <= gun.timeSinceLastShoot then
         gun.timeSinceLastShoot = 0
 
-        local bullet = Entity()
-
-        bullet:addComponent(
-            Component(
-                COMPONENT.TRANSFORM, {
-                    x = transform.x,
-                    y = transform.y,
-                    w = 10,
-                    h = 10,
-                    sx = 0.5,
-                    sy = 0.5,
-                    rotation = transform.rotation,
-                    texture = love.graphics.newImage('assets/bullet.png'),
-                    speed = gun.speed
-                }
-            )
-        )
-
+        local bullet = Bullet:factory(transform, gun)
         table.insert(gun.firedBullets, bullet)
 
         MyWorld:addEntity(bullet)

@@ -20,6 +20,7 @@ EVENT = {
 
 -- MARK: - Entities
 require('entities.player')
+require('entities.bullet')
 
 -- MARK: - Systems
 require('systems.inputSystem')
